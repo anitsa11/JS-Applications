@@ -20,15 +20,14 @@ function register() {
 
     }
 
-    async function createUser(data) {
+    async function createUser(userData) {
 
         const option = {
             method: "POST",
             headers: {
                 "content-Type": "application.json"
-            }
-
-            body: JSON.stringify(data)
+            },
+            body: JSON.stringify(userData)
         }
 
         const response = await fetch(URL,option);
