@@ -31,9 +31,9 @@ function register() {
         }
 
         const response = await fetch(URL,option);
-        const userData = await response.json();
+        const data = await response.json();
 
-        sessionStorage.setItem("userData", JSON.stringify(userData));
+        sessionStorage.setItem("userData", JSON.stringify(data));
 
         window.location = 'index.html';
     }
