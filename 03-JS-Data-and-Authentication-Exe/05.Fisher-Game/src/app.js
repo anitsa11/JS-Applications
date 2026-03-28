@@ -160,7 +160,21 @@ function app() {
         return fetch(endPoints.catches + `/${id}`, option);
     }
 
-    function onDelete() { };
+    async function onDelete(e) {
+        const id = e.target.dataset.id;
+
+        const option = {
+            method: "DELETE",
+            headers: {
+                "X-Authorization": userData.accessToken
+            }
+        }
+
+        await fetch(endPoints.catches + `/${id}`, option);
+        onLoadAllCatches()
+
+
+    };
 
 }
 
