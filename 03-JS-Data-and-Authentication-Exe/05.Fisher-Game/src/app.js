@@ -19,6 +19,8 @@ function app() {
 
     form.addEventListener("submit", onSubmit);
 
+    document.querySelector("button.load").addEventListener("click", onLoadAllCatches);
+
     onLoadAllCatches();
 
     updateNav();
