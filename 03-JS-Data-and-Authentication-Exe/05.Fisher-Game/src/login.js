@@ -25,11 +25,11 @@ function login() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify()
+            body: JSON.stringify(userData)
         }
         const response = await fetch(URL, option)
         const data = await response.json();
-        sessionStorage.setItem("usedData", JSON.stringify(data));
+        sessionStorage.setItem("userData", JSON.stringify(data));
 
         window.location = "index.html";
     }
