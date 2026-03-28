@@ -74,26 +74,30 @@ function app() {
             div.classList.add("catch")
             const content = createContent(el);
             div.innerHTML = content;
+
+            div.querySelector("button.update").addEventListener("click", onUpdate);
+            div.querySelector("button.delete").addEventListener("click", onDelete)
+
             catchesRef.appendChild(div);
         })
     }
 
     function createContent(el) {
         return `
-         <label>Angler</label>
-          input type="text" class="angler" value=${el.angler}>
+            <label>Angler</label>
+            <input type="text" class="angler" value="${el.angler}">
             <label>Weight</label>
-            <input type="text" class="weight" value=${el.weight}>
+            <input type="text" class="weight" value="${el.weight}">
             <label>Species</label>
-             <input type="text" class="species" value=${el.species}>
+            <input type="text" class="species" value="${el.species}">
             <label>Location</label>
-            <input type="text" class="location" value=${el.location}>
-             <label>Bait</label>
-            <input type="text" class="bait" value=${el.bait}>
+            <input type="text" class="location" value="${el.location}">
+            <label>Bait</label>
+            <input type="text" class="bait" value="${el.bait}">
             <label>Capture Time</label>
-            <input type="number" class="captureTime" value=${el.captureTime}>
-            <button class="update" data-id=${el._ownerId} ${el._ownerId !== userData?._id ? "disabled" : ""}>Update</button>
-            <button class="delete" data-id=${el._ownerId} ${el._ownerId !== userData?._id ? "disabled" : ""}>Delete</button>
+            <input type="number" class="captureTime" value="${el.captureTime}">
+            <button class="update" data-id=${el._id} ${el._ownerId !== userData?._id ? "disabled" : ""}>Update</button>
+            <button class="delete" data-id=${el._id} ${el._ownerId !== userData?._id ? "disabled" : ""}>Delete</button>
         `
     }
 
@@ -122,7 +126,42 @@ function app() {
         }
         return fetch(endPoints.catches, option);
     }
-    
+
+    async function onUpdate(e) {
+        const id = e.target.dataset.id;
+
+        const inputs = Array.from(e.target.parentElement.querySelectorAll("input"));
+        const [anglerRef, weightRef, speciesRef, locationRef, baitRef, captureTimeRef] = inputs;
+
+        const data = {
+            angler: anglerRef.value,
+            weight: weightRef.value,
+            species: speciesRef.value,
+            location: locationRef.value,
+            bait: baitRef.value,
+            captureTime: captureTimeRef.value
+        }
+
+        await updateCatches(data, id);
+        onLoadAllCatches()
+
+
+    };
+
+    function updateCatches(data, id) {
+        const option = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Authorization": userData.accessToken
+            },
+            body: JSON.stringify(data)
+        }
+        return fetch(endPoints.catches + `/${id}`, option);
+    }
+
+    function onDelete() { };
+
 }
 
 app()
