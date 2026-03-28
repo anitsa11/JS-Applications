@@ -27,7 +27,10 @@ function login() {
             },
             body: JSON.stringify(userData)
         }
-        const response = await fetch(URL, option)
+        const response = await fetch(URL, option);
+        if(response.status !== 200) {
+            return;
+        }
         const data = await response.json();
         sessionStorage.setItem("userData", JSON.stringify(data));
 

@@ -17,6 +17,8 @@ function app() {
     const form = document.querySelector("form");
     const addBtn = form.querySelector("button");
 
+    form.addEventListener("submit", onSubmit);
+
     onLoadAllCatches();
 
     updateNav();
@@ -90,10 +92,37 @@ function app() {
             <input type="text" class="bait" value=${el.bait}>
             <label>Capture Time</label>
             <input type="number" class="captureTime" value=${el.captureTime}>
-            <button class="update" data-id=${el._ownerId} ${el._ownerId !== userData?._id ? "disabled": ""}>Update</button>
-            <button class="delete" data-id=${el._ownerId} ${el._ownerId !== userData?._id ? "disabled": ""}>Delete</button>
+            <button class="update" data-id=${el._ownerId} ${el._ownerId !== userData?._id ? "disabled" : ""}>Update</button>
+            <button class="delete" data-id=${el._ownerId} ${el._ownerId !== userData?._id ? "disabled" : ""}>Delete</button>
         `
     }
+
+    async function onSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const { angler, weight, species, location, bait, captureTime } = Object.fromEntries(formData);
+
+        if (!angler || !weight || !species || !location || !bait || !captureTime) {
+            return;
+        }
+        await saveCatches({ angler, weight, species, location, bait, captureTime });
+        e.target.reset();
+        onLoadAllCatches();
+    }
+
+    function saveCatches(data) {
+        const option = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Authorization": userData.accessToken
+            },
+            body: JSON.stringify(data)
+        }
+        return fetch(endPoints.catches, option);
+    }
+    
 }
 
 app()
