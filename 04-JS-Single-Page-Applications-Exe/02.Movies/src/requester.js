@@ -1,3 +1,4 @@
+import { userUtil } from "./userUtils.js";
 
 async function requester(method, url, data) {
     const option = {
@@ -6,6 +7,10 @@ async function requester(method, url, data) {
 
     const headers = {
         "Content-Type": "application/json"
+    }
+
+    if(userUtil.hasUser()) {
+        headers['X-Authorization'] = userUtil.getAccessToken();
     }
 
     option["headers"] = headers;

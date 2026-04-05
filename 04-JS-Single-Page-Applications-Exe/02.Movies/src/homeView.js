@@ -3,6 +3,7 @@ const movieList = document.getElementById("movies-list");
 
 
 export function showHome() {
+    document.querySelectorAll("section").forEach(s=>s.stylr = "none");
     homeRef.style.display = "block";
     homeRef.querySelectorAll("section").forEach(section => section.style.display = "block");
 
