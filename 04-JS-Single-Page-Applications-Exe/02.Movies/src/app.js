@@ -6,9 +6,9 @@ document.querySelector("nav").addEventListener("click", onNavigate);
 const routes = {
     "/": showHome,
     "/home": showHome,
-    "/login": "",
-    "/register": "",
-    "/logout": ""
+    "/login": () => console.log('login'),
+    "/register": () => console.log('register'),
+    "/logout": () => console.log('logout')
 
 }
 
@@ -21,6 +21,6 @@ function onNavigate(e) {
     }
     e.preventDefault();
     const path = new URL(el.href).pathname;
-    routes[path]();
+    routes[path];
 
 }

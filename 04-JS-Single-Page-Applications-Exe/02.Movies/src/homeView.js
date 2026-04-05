@@ -1,5 +1,5 @@
 const homeRef = document.getElementById("home-page")
-const movieList = homeRef.getElementById("movies-list");
+const movieList = document.getElementById("movies-list");
 
 
 export function showHome() {
