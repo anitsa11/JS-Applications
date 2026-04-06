@@ -12,14 +12,17 @@ function getUserData() {
 }
 
 function hasUser() {
-    return !!getUserData
+    return !!getUserData();
 }
 
 function getAccessToken() {
     const userData = getUserData();
-    return userData.getAccessToken
+    return userData.accessToken;
 }
 export const userUtil = {
     storeUserData,
-    clearUserData
+    clearUserData,
+    hasUser,
+    getAccessToken,
+    getUserData
 }

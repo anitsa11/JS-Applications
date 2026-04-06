@@ -1,8 +1,11 @@
+import { updateNav } from "./app.js";
+
 const homeRef = document.getElementById("home-page")
 const movieList = document.getElementById("movies-list");
 
 
 export function showHome() {
+    updateNav();
     document.querySelectorAll("section").forEach(s=>s.stylr = "none");
     homeRef.style.display = "block";
     homeRef.querySelectorAll("section").forEach(section => section.style.display = "block");

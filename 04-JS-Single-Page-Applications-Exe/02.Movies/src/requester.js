@@ -20,15 +20,15 @@ async function requester(method, url, data) {
     }
 
     try {
-        const response = await fetch(url, option);
+        const response = await fetch(url, option)
 
         if (response.status !== 200) {
             alert(response.status);
             return response
         }
 
-        const data = await fetch(url, option);
-        return data;
+        const result = await response.json();
+        return result;
 
     } catch (error) {
         alert(error);
