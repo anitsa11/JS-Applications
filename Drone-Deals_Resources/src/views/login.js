@@ -1,6 +1,7 @@
 import { html } from "../lib.js";
 
 import {login} from "../data/user.js"
+import { updateNav } from "../utils/utils.js";
 
 
 const loginTemplate = (onLogin) => html`
@@ -35,6 +36,7 @@ export function loginView(ctx) {
 
             await login (email, password);
 
+            updateNav();
             ctx.page.redirect('/')
         } catch (err) {
             alert(err.message);
